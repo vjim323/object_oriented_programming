@@ -69,7 +69,13 @@ class Rover
 end
 
 rover1 = Rover.new(1,1, "N")
-rover1.display_position
+rover2 = Rover.new(2,3, "W")
+
 rover1.read_instruction
 rover1.interpret_instructions
+
+rover2.read_instruction
+rover2.interpret_instructions
+
 rover1.display_position
+rover2.display_position
