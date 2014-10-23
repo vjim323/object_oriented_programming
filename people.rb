@@ -26,6 +26,11 @@ end
 
 chris = Instructor.new("Chris")
 chris.say_name
+chris.teach
 
 cristina = Student.new("Cristina")
 cristina.say_name
+cristina.learn
+cristina.teach
+#The teach method belongs to the Instructor class, which is not appended to the Student class. 
+#Therefore, the teach method isn't available in the Student class to be called.
