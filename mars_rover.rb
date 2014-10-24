@@ -1,7 +1,15 @@
 #Exercise 2 - Mars Rover
+module PlateauSize
+	def set_plateau(height, width)
+		@height = height
+		@width = width
+	end
+end
 
 class Rover
 	attr_accessor :x, :y, :direction
+
+	include PlateauSize
 
 	def initialize(x, y, direction)
 		@x = x
@@ -14,8 +22,8 @@ class Rover
 	end
 
 	def read_instruction
-		puts "Please enter the instructions for the Rover (M, L, R): "
-		@instructions = gets.chomp
+		puts "Please enter the instructions for the Rover (M/L/R): "
+		@instructions = gets.upcase
 	end
 
 	def interpret_instructions
@@ -41,6 +49,12 @@ class Rover
 		else #(@direction == "W") 
 			@x = @x - 1
 		end
+
+		@x = [@x, @width].min
+		@y = [@y, @height].min
+		@x = [@x, 0].max
+		@y = [@y, 0].max
+
 	end
 
 	def turn_left
@@ -68,11 +82,24 @@ class Rover
 	end
 end
 
-rover1 = Rover.new(1,1, "N")
-rover2 = Rover.new(2,3, "W")
+puts "Please enter the plateau size (height/width): "
+plateau = gets.chomp
+
+
+puts "Please enter the starting coordinates of Rover 1 (x/y/direction): "
+coordinates = gets.upcase
+
+rover1 = Rover.new(coordinates.split[0].to_i,coordinates.split[1].to_i, coordinates.split[2])
+rover1.set_plateau(plateau.split[0].to_i, plateau.split[1].to_i)
 
 rover1.read_instruction
 rover1.interpret_instructions
+
+puts "Please enter the starting coordinates of Rover 2 (x/y/direction): "
+coordinates = gets.upcase
+
+rover2 = Rover.new(coordinates.split[0].to_i,coordinates.split[1].to_i, coordinates.split[2])
+rover2.set_plateau(plateau.split[0].to_i, plateau.split[1].to_i)
 
 rover2.read_instruction
 rover2.interpret_instructions
